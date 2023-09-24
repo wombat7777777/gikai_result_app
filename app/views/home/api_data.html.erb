@@ -1,0 +1,56 @@
+<div class="title">
+<div class="container">
+  <h1>決議結果</h1>
+</div>
+</div>
+
+<div class="select">
+<div class="container">
+<%= form_tag('/search', method: 'get') do %>
+  <label for="result">検索:</label>
+  <select name="result" id="result">
+    <option value="未定">未定</option>
+    <option value="可決">可決</option>
+    <option value="否決">否決</option>
+    <option value="採択">採択</option>
+    <option value="不採択">不採択</option>
+  </select>
+  <%= submit_tag '検索' %>
+<% end %>
+</div>
+</div>
+<% count = 0  %>
+<div class="result-calor">
+  <div class="container">
+    <% cards = @agendas.zip(@natures, @dates, @agreements, @oppositions, @results) %>
+    <% cards.each do |agenda, nature, date, agreement, oppostion, result| %>
+    <div class="result-cord" >
+      <div class=result-title>
+        <h3><%= nature %></h3><br>
+        <p><%= agenda %></p><br>
+      </div>
+      <div class="result-score">
+        <div class=result-left>
+          <h3>賛成</h3>
+        </div>
+        <h1><%= agreement %></h1>
+        <h1>-</h1>
+        <h1><%= oppostion %></h1>
+        <div class="result-right">
+          <h3>反対</h3>
+        </div>
+      </div>
+      <h2><%= result %></h2>
+      <div class="date">
+         <p><%= date %></p>
+      </div>
+
+      <%= link_to "詳細を表示", "/show_detail/#{count}" %>
+      <% count += 1 %>
+
+    </div><br>
+    <% end %>
+
+
+  </div>
+</div>
